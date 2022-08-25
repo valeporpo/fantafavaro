@@ -319,8 +319,9 @@ div.main > div.log > div.record > div > form.buy-form > input[type="number"] {
     width: 70%;
 }
 
-div.main > div.log > div.record > div > form.buy-form > input[type="submit"] {
-    width: 30%;
+div.main > div.log > div.record > div > form.buy-form > button {
+    width: 20%;
+    margin-left: 10%;
 }
 
 div.main > div.log > div.record > div:not(:first-child){

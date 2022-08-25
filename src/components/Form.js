@@ -8,26 +8,26 @@ export default function Form(props) {
         setPlayerPrice(newValue) 
     }
 
+    function handleSubmit(event) {
+        event.preventDefault()
+        console.log(playerPrice + props.managerName + props.playerId)
+    }
+
     return(
-        <form className="buy-form">
+        <form onSubmit={handleSubmit} className="buy-form">
            <input 
                type="number"
                name="bid"
                value={playerPrice}
                onChange={handlePriceInput} 
            />
-           <input 
-               type="hidden"
-               name="id"
-               value={props.playerId}
-           />
-           <input
-               type="submit"
-               name="submit"
+           <button
+
                className="buy-trigger"
                onClick={props.submit}
-               value="+"
-           />
+           >
+            +
+           </button> 
         </form>
     )
 }

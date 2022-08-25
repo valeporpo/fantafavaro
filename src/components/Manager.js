@@ -22,7 +22,13 @@ export default function Manager(props) {
       <div>{props.buyed}</div>
       <div>
       {props.isHeader == "true" && "Compra"}
-      {props.isHeader == "false" && <Form submit={buyPlayer} playerId={props.currentPlayerRef} startingPrice={playersList.data.players[props.currentPlayerRef].price}/>}
+      {props.isHeader == "false" && <Form
+                                        submit={buyPlayer}
+                                        managerName={props.name}
+                                        playerId={props.currentPlayerRef}
+                                        startingPrice={playersList.data.players[props.currentPlayerRef].price}
+                                    />
+      }
       </div>
       
     </div>
