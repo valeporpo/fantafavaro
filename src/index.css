@@ -272,7 +272,7 @@ div.main > div.player-card > div.player-team > div.player-role.player-role-forwa
 div.main > div.log > div.record {
     width: 100%;
     display: grid;
-    grid-template-columns: 40% 25% 25% 10%;
+    grid-template-columns: 20% 25% 25% 30%;
     grid-template-rows: auto;
 }
 
@@ -311,6 +311,17 @@ div.main > div.log > div.record:first-child {
     font-weight: 700;
 }
 
+div.main > div.log > div.record > div > form.buy-form {
+    display: flex;
+}
+
+div.main > div.log > div.record > div > form.buy-form > input[type="number"] {
+    width: 70%;
+}
+
+div.main > div.log > div.record > div > form.buy-form > input[type="submit"] {
+    width: 30%;
+}
 
 div.main > div.log > div.record > div:not(:first-child){
     text-align: center;

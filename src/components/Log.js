@@ -2,7 +2,6 @@ import playersList from '../managerData.js';
 import Manager from './Manager';
 export default function Log(props) {
     const managers = playersList.data.managers
-    //console.log(managers)
     return (
         <div className="log">
          <Manager currentPlayerRef={props.currentPlayerRef} isHeader="true" name="Allenatore" credits="Milioni" buyed="Giocatori"/>

@@ -1,5 +1,6 @@
 import React from 'react';
 import playersList from '../playerData.js';
+import Form from './Form';
 
 export default function Manager(props) {
 
@@ -19,7 +20,11 @@ export default function Manager(props) {
       <div>{props.name}</div>
       <div>{budget}</div>
       <div>{props.buyed}</div>
-      {props.isHeader == "false" && <div onClick={buyPlayer}><div className="buy-trigger">+</div></div>}
+      <div>
+      {props.isHeader == "true" && "Compra"}
+      {props.isHeader == "false" && <Form submit={buyPlayer} playerId={props.currentPlayerRef} startingPrice={playersList.data.players[props.currentPlayerRef].price}/>}
+      </div>
+      
     </div>
   )
 }
