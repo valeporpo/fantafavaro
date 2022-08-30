@@ -1,104 +1,67 @@
 import React from 'react';
-import playersList from '../playerData.js';
 
 export default function Player(props) {
-    /*const [roleClass, setRoleClass] = React.useState("player-role-forward")
-    const [player, setPlayer] = React.useState(
-      {
-        "name" : playersList.data.players[0].name,
-        "price" : playersList.data.players[0].price,
-        "role" : playersList.data.players[0].role,
-        "team" : playersList.data.players[0].team,
-      }
-    )
 
-    function getRoleClass(role) {
+    function setRoleClass(role) {
 
-      if(role == "P") {
+      if(role == "Por") {
         return "player-role-goalkeeper"
-      } else if(role == "DC" || role == "TS" || role == "TD") {
+      } else if(role == "Dc" || role == "Dd" || role == "Ds") {
         return "player-role-defender"
-      } else if(role == "M" || role == "CC" || role == "E") {
+      } else if(role == "M" || role == "C" || role == "E") {
         return "player-role-midfielder"
       } else if(role == "T" || role == "W") {
         return "player-role-wing"
-      } else {
+      } else if(role == "A" || role == "Pc") {
         return "player-role-forward"
       }
     }
-    function changePlayer() {
-      let randomInt = Math.floor(Math.random() * (playersList.data.players.length))
-      let selectedPlayer = playersList.data.players[randomInt]
-      let classToRender = getRoleClass(selectedPlayer.role)
 
-      setPlayer(
-        {
-        "name" : selectedPlayer.name,
-        "price" : selectedPlayer.price,
-        "role" : selectedPlayer.role,
-        "team" : selectedPlayer.team,
-      })
-      setRoleClass(classToRender)
-
-    }*/
-    /*return (
-        <div className="player-card" onMouseOver={props.handle}>
-            <div className="player-name">
-                {player.name}{props.test}
+    let anonimousPlayer = typeof(props.currentPlayer) == 'undefined' || Object.keys(props.currentPlayer).length <= 0
+    return (
+        <div className={`player-card`}>
+            <div className={`player-name`}>
+                {!anonimousPlayer ? props.currentPlayer.nome : '???'}
             </div>
-            <div className="player-team">
-                <img src={`loghi/${player.team}.png`} className="team-logo"/>
-                <br />
-                <span className='player-price'>{player.price}</span>M, <div className={`player-role ${roleClass}`}>{player.role}</div>
+            <div className={`player-info-container ${!anonimousPlayer && props.currentPlayer.buyed == true ? 'buyed' : ''}`}>
+                <div className='player-team'>
+                  <div className={`player-buyed-sign`}>
+                    Venduto !
+                  </div>
+                  <img src={!anonimousPlayer ? `loghi/${!anonimousPlayer && props.currentPlayer.squadra}.png` : `default-user-image.png`}
+                      className="team-logo"
+                  />
+                </div>
+                <div className='player-statistics'>
+                  <div className={!anonimousPlayer ? `player-role` : ''}>
+                    {!anonimousPlayer ? props.currentPlayer.ruolo.split(',').map((role) => <span className={setRoleClass(role)}>{role}</span>) : ''}
+                  </div>
+                  <div className='player-price'>
+                    <span>
+                      {!anonimousPlayer ? props.currentPlayer.prezzo_base : ''}
+                    </span>
+                  </div>
+                </div>
             </div>
             <div className="extractor">
-                <div className="extractor-backward">
+                <div
+                   className={`extractor-backward ${!anonimousPlayer && props.currentPlayer.ordine_estrazione != 1 ? '': 'hidden-button'}`}
+                   onClick={props.handleBackward}>
                   <span>Torna indietro</span>
                 </div>
-                <div className="extractor-forward" onClick={changePlayer}>
-                  <span>Estrai</span>
+                <div
+                   className={`extractor-forward ${!anonimousPlayer ? '': 'hidden-button'}`}
+                   onClick={props.handleForward}>
+                  <span>{props.isLast ? 'Estrai' : 'Vai avanti'}</span>
+                </div>
+                <div
+                   className={`extractor-forward ${!anonimousPlayer ? 'hidden-button' : ''}`}
+                   onClick={props.handleBegin}>
+                  <span>Inizia l'asta</span>
                 </div>
             </div>
         </div>
-    )*/
-    function setRoleClass(role) {
+        
 
-      if(role == "P") {
-        return "player-role-goalkeeper"
-      } else if(role == "DC" || role == "TS" || role == "TD") {
-        return "player-role-defender"
-      } else if(role == "M" || role == "CC" || role == "E") {
-        return "player-role-midfielder"
-      } else if(role == "T" || role == "W") {
-        return "player-role-wing"
-      } else {
-        return "player-role-forward"
-      }
-    }
-    return (
-      <div className={`player-card ${props.status}`}>
-          <div className="player-name">
-              {playersList.data.players[props.currentPlayerRef].name}
-          </div>
-          <div className="player-team">
-              <img src={`loghi/${playersList.data.players[props.currentPlayerRef].team}.png`} className="team-logo"/>
-              <br />
-              <span className='player-price'>
-                {playersList.data.players[props.currentPlayerRef].price}
-              </span>
-              M,
-              <div className={`player-role ${setRoleClass(playersList.data.players[props.currentPlayerRef].role)}`}>
-                {playersList.data.players[props.currentPlayerRef].role}
-              </div>
-          </div>
-          <div className="extractor">
-              <div className="extractor-backward">
-                <span>Torna indietro</span>
-              </div>
-              <div className="extractor-forward" onClick={props.handle}>
-                <span>Estrai</span>
-              </div>
-          </div>
-      </div>
   )
 }

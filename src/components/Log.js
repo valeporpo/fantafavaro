@@ -1,11 +1,29 @@
-import playersList from '../managerData.js';
+
 import Manager from './Manager';
 export default function Log(props) {
-    const managers = playersList.data.managers
+
     return (
         <div className="log">
-         <Manager currentPlayerRef={props.currentPlayerRef} isHeader="true" name="Allenatore" credits="Milioni" buyed="Giocatori"/>
-         {managers.map((manager) => <Manager handle={props.handle} currentPlayerRef={props.currentPlayerRef} key={manager.id} isHeader="false" name={manager.name} credits="300" buyed="0"/>)}
+         <Manager
+                  currentPlayer={props.currentPlayer}
+                  key={-1}
+                  isHeader="true"
+                  data={{'id': 0, 'nome': 'Nome', 'spesa' : 0}}
+                  credits="Milioni"
+                  buyed="Giocatori"
+                  
+         />
+         {
+           props.managers.map((manager) =>
+             <Manager
+                      handleBuy={props.handleBuy}
+                      currentPlayer={props.currentPlayer}
+                      key={manager.id}
+                      isHeader="false"
+                      data={manager}
+                      credits="400"
+             />)
+         }
 
         </div>
     )

@@ -117,13 +117,7 @@ div.main {
 
     }
 
-    div.main > div:last-child.log {
-
-
-
-    }
-
-    div.main > div.player-card > div.player-team > img.team-logo {
+    div.main > div.player-card > div.player-info-container > div.player-team > img.team-logo {
 
         width: 150px !important;
 
@@ -136,27 +130,6 @@ div.main > div:first-child.player-card {
     margin-right: 50px;
     text-align: right;
     width: 340px;
-
-}
-
-div.main > div:first-child.player-card.buyed {
-
-    opacity: 0.7;
-
-}
-
-div.main > div:last-child.log {
-
-    margin-left: 50px;
-    width: 360px;
-    background-color: white;
-    box-shadow: 1px 3px 4px grey;
-    border-radius: 15px;
-    padding: 20px;
-    font-family: 'Karla', sans-serif;
-    margin-top: 30px;
-    display: grid;
-    grid-template-rows: auto;
 
 }
 
@@ -195,6 +168,12 @@ div.main > div.player-card > div:last-child > div {
 
 }
 
+div.main > div.player-card > div:last-child > div.hidden-button {
+
+    display: none;
+
+}
+
 div.main > div.player-card > div:last-child > div:active {
 
     box-shadow: 0 0 0;
@@ -228,104 +207,114 @@ div.main > div.player-card > div.player-name {
 
 }
 
-div.main > div.player-card > div.player-team {
+div.main > div.player-card > div.player-info-container {
 
     text-align: center;
+    display: flex;
+    flex-direction: row;
 
 }
 
-div.main > div.player-card > div.player-team > img.team-logo {
+div.main > div.player-card > div.player-info-container >
+div.player-team {
+    width: 70%;
+}
+
+div.main > div.player-card > div.player-info-container >
+div.player-team > div.player-buyed-sign {
+
+    display: none;
+    position: absolute;
+    background-color: red;
+    padding: 5px 10px;
+    font-size: 22px;
+    border-radius: 5px 5px 5px 5px;
+    transform: rotate(15deg);
+    text-transform: uppercase;
+
+}
+
+div.main > div.player-card > div.player-info-container.buyed >
+div.player-team > div.player-buyed-sign {
+
+    display: block;
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-team > img.team-logo {
 
     width: 200px;
     border-radius: 50%;
 
 }
 
-div.main > div.player-card > div.player-team > div.player-role {
-    border-radius: 50%;
-    padding: 2px;
-    display: inline-block;
-    width: 24px;
-    height: 24px;
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-role {
+    float:left;
 }
 
-div.main > div.player-card > div.player-team > div.player-role.player-role-goalkeeper {
+div.main > div.player-card > div.player-info-container
+> div.player-statistics {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div {
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-statistics >  div.player-role > span {
+    border-radius: 50%;
+    padding: 3px;
+    display: inline-block;
+    border: 2px solid white;
+    width: 24px;
+    height: 24px;
+    margin-left: -3px;
+    margin-right: -3px;
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-role > span.player-role-goalkeeper {
     background-color: brown;
 }
 
-div.main > div.player-card > div.player-team > div.player-role.player-role-defender {
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-role > span.player-role-defender {
     background-color: green;
 }
 
-div.main > div.player-card > div.player-team > div.player-role.player-role-midfielder {
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-role > span.player-role-midfielder {
     background-color: blue;
 }
 
-div.main > div.player-card > div.player-team > div.player-role.player-role-wing {
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-role > span.player-role-wing {
     background-color: purple;
 }
 
-div.main > div.player-card > div.player-team > div.player-role.player-role-forward {
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-role > span.player-role-forward {
     background-color: red;
 }
 
-div.main > div.log > div.record {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 20% 25% 25% 30%;
-    grid-template-rows: auto;
-}
-
-div.main > div.log > div.record > div {
-    line-height: 100%;
-    vertical-align: middle;
-}
-
-div.main > div.log > div.record:not(:first-child) > div:last-child {
-  cursor: pointer;
-}
-
-div.main > div.log > div.record:not(:first-child) > div:last-child > div.buy-trigger {
-    color: white;
-    background-color: green;
-    font-weight: 700;
-    margin-left: 5px;
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-price > span {
     border-radius: 50%;
-    text-align: center;
-    display: none;
-    width: 15px;
-    height: 15px;
-    line-height: 15px;
-    text-align: center;
-}
-
-div.main > div.log > div.record:hover > div:last-child > div.buy-trigger {
+    width: 24px;
+    height: 24px;
     display: inline-block;
-}
-
-div.main > div.log > div.record:hover {
-    background-color: yellow;
-}
-
-div.main > div.log > div.record:first-child {
-    font-weight: 700;
-}
-
-div.main > div.log > div.record > div > form.buy-form {
-    display: flex;
-}
-
-div.main > div.log > div.record > div > form.buy-form > input[type="number"] {
-    width: 70%;
-}
-
-div.main > div.log > div.record > div > form.buy-form > button {
-    width: 20%;
-    margin-left: 10%;
-}
-
-div.main > div.log > div.record > div:not(:first-child){
-    text-align: center;
+    border: 2px solid #105a37;
+    background-color: rgb(229, 184, 11);
+    color: #105a37;
+    padding: 3px;
+    
 }
 
 /* End Main */
