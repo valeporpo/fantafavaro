@@ -2,9 +2,8 @@ import React from 'react';
 import config from '../config.js'
 
 export default function Buyer(props) {
-
   const [currentBid, setCurrentBid] = React.useState(props.currentPlayer.prezzo_base)
-  const [currentManager, setCurrentManager] = React.useState("")
+  const [currentManager, setCurrentManager] = React.useState(props.managers[0].id)
   React.useEffect(() => {
     setCurrentBid(props.currentPlayer.prezzo_base);
   }, [props.currentPlayer.prezzo_base])

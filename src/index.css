@@ -281,17 +281,17 @@ div.main > div.player-card > div.player-info-container
 
 div.main > div.player-card > div.player-info-container
 > div.player-statistics > div.player-role > span.player-role-goalkeeper {
-    background-color: brown;
+    background-color: rgb(209, 133, 34);
 }
 
 div.main > div.player-card > div.player-info-container
 > div.player-statistics > div.player-role > span.player-role-defender {
-    background-color: green;
+    background-color: rgb(11, 175, 11);
 }
 
 div.main > div.player-card > div.player-info-container
 > div.player-statistics > div.player-role > span.player-role-midfielder {
-    background-color: blue;
+    background-color: rgb(63, 63, 241);
 }
 
 div.main > div.player-card > div.player-info-container
@@ -301,7 +301,7 @@ div.main > div.player-card > div.player-info-container
 
 div.main > div.player-card > div.player-info-container
 > div.player-statistics > div.player-role > span.player-role-forward {
-    background-color: red;
+    background-color: rgb(224, 16, 16);
 }
 
 div.main > div.player-card > div.player-info-container
