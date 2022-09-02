@@ -4,7 +4,7 @@ import CustomPlayer from './CustomPlayer'
 export default function CustomSelector(props) {
   
   const [selection, setSelection] = React.useState('')  
-
+  console.log(props)
   function handleChange(event) {
     let string = event.target.value
     let newFilter = ""
@@ -25,12 +25,15 @@ export default function CustomSelector(props) {
             
             let isPlayerNameBegin = player.nome.substr(0, selection.length) == selection
             let isTeamNameBegin = player.squadra.substr(0, selection.length) == selection
-            return (isPlayerNameBegin || isTeamNameBegin) && selection.length > 2
+            let isExtracted = player.ordine_estrazione != 0
+            return (isPlayerNameBegin || isTeamNameBegin) && selection.length > 2 && isExtracted 
         }
     )
   } else {
     playersToDisplay = []
   }
+
+  console.log(playersToDisplay)
 
   return(
     <div className="custom-selector">
@@ -45,6 +48,7 @@ export default function CustomSelector(props) {
         {playersToDisplay.map(
             (player) => <CustomPlayer player={player}
                                       managers={props.managers}
+                                      refresh={props.refresh}
             />
         )}
     </div>

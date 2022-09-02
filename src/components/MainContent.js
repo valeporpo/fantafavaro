@@ -47,7 +47,7 @@ export default function MainContent() {
               setPlayers(data.data)
            }
         })
-  }
+    }
 
     // Recupera tutti gli allenatori
     function retrieveManagers() {
@@ -82,6 +82,7 @@ export default function MainContent() {
                default:
                   setStatus('error')
              }
+             retrievePlayers()
           })
     }
 
@@ -107,6 +108,7 @@ export default function MainContent() {
               default:
                  setStatus('error')
             }
+            retrievePlayers()
            })
     }
 
@@ -146,9 +148,11 @@ export default function MainContent() {
                     handleBegin={extractPlayer}
                     handleBuy={handleBuy}
                     managers={managers}
+                    refresh={retrievePlayers}
             />
             <CustomSelector players={players}
                             managers={managers}
+                            refresh={retrievePlayers}
             />            
         </div>
     )

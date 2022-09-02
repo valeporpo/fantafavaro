@@ -43,8 +43,9 @@ export default function Player(props) {
                   </div>
                   <div className={props.currentPlayer.buyed ? 'player-buyer hidden' : 'player-buyer'}>
                     {props.status != 'begin' ? <Buyer currentPlayer={props.currentPlayer}
-                    handleBuy={props.handleBuy}
-                    managers={props.managers}
+                                                      handleBuy={props.handleBuy}
+                                                      managers={props.managers}
+                                                      refresh={props.refresh}
                   /> : ''}
                   </div>
                 </div>

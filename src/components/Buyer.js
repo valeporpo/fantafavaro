@@ -13,10 +13,7 @@ export default function Buyer(props) {
   }, [props.managers[0].id])
 
   function handlePriceChange(event) {
-    //if(event.target.value >= props.currentPlayer.prezzo_base)
       setCurrentBid(event.target.value)
-    //else
-     // setCurrentBid(props.currentPlayer.prezzo_base)  
   }
 
   function handleManagerChange(event) {
@@ -25,7 +22,6 @@ export default function Buyer(props) {
 
   function handleSubmit(event) {
     event.preventDefault()
-
     fetch(`${config.apiBase}buy_player?
                token=${config.apiToken}&internal_id=${props.currentPlayer.id}
                &manager_id=${currentManager}&payed=${currentBid}`)
@@ -33,6 +29,7 @@ export default function Buyer(props) {
           .then(function(data) {
               console.log(data)
               props.handleBuy(data.data.extracted)
+              props.refresh()
           })
   }
   return(

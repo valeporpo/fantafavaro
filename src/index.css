@@ -381,10 +381,59 @@ select {
    padding: 4px;
 }
 
+div.main > div.custom-selector {
+    width: 100%;
+}
+
 div.main > div.custom-selector > div.custom-selected-player {
     display: flex;
     flex-direction: row;
     font-family: 'Noto Sans Georgian', sans-serif;
+    font-size: calc(8px + 1vw);
+    height: 30px;
+    line-height: 30px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+div.main > div.custom-selector > div.custom-selected-player > div {
+   border: 1px solid black;
+   text-align: center;
+}
+
+div.main > div.custom-selector > div.custom-selected-player.custom-selected-player-buyed
+> div:nth-child(1) {
+      width: 25%;
+}
+
+div.main > div.custom-selector > div.custom-selected-player.custom-selected-player-buyed
+> div:nth-child(2) {
+      width: 25%;
+}
+
+div.main > div.custom-selector > div.custom-selected-player.custom-selected-player-buyed
+> div:nth-child(3) {
+      width: 25%;
+}
+
+div.main > div.custom-selector > div.custom-selected-player.custom-selected-player-buyed
+> div:nth-child(4) {
+      width: 25%;
+}
+
+div.main > div.custom-selector > div.custom-selected-player.custom-selected-player-unbuyed
+> div:nth-child(1) {
+      width: 25%;
+}
+
+div.main > div.custom-selector > div.custom-selected-player.custom-selected-player-unbuyed
+> div:nth-child(2) {
+      width: 25%;
+}
+
+div.main > div.custom-selector > div.custom-selected-player.custom-selected-player-unbuyed
+> div:nth-child(3) {
+      width: 50%;
 }
 
 .hidden {

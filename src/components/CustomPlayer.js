@@ -6,46 +6,65 @@ export default function CustomPlayer(props) {
   let record = props.player
   const [selectedManager, setSelectedManager] = React.useState('')
   const [selectedBet, setSelectedBet] = React.useState('')
-  /*const [currentBid, setCurrentBid] = React.useState('')
-  const [currentManager, setCurrentManager] = React.useState('')
+
+  let startingPrice = ''
+  if(Object.keys(record).length !== 0) {
+    startingPrice = record.prezzo_base;
+  }
+  
   React.useEffect(() => {
-    setCurrentBid(props.currentPlayer.prezzo_base);
-  }, [props.currentPlayer.prezzo_base])
+      if(Object.keys(record).length !== 0) {
+        setSelectedBet(startingPrice);
+      }
+  }, [startingPrice])
+  
 
   React.useEffect(() => {
-    setCurrentManager(props.managers[0].id);
+    setSelectedManager(props.managers[0].id);
   }, [props.managers[0].id])
 
-  function handlePriceChange(event) {
-    if(event.target.value >= props.currentPlayer.prezzo_base)
-      setCurrentBid(event.target.value)
-    else
-      setCurrentBid(props.currentPlayer.prezzo_base)  
+  function handleBet(event) {
+    console.log(event.target.value)
+    setSelectedBet(event.target.value)
   }
 
-  function handleManagerChange(event) {
-      setCurrentManager(event.target.value)  
+  function handleManager(event) {
+    console.log(event.target.value)
+    setSelectedManager(event.target.value)
   }
 
   function handleSubmit(event) {
     event.preventDefault()
+    if(!props.player.buyed) {
+      fetch(`${config.apiBase}buy_player?
+            token=${config.apiToken}&internal_id=${record.id}
+            &manager_id=${selectedManager}&payed=${selectedBet}`)
+      .then(res => res.json())
+      .then(function(data) {
+          console.log(data)
+          props.refresh()
+      })
+    } else {
+      fetch(`${config.apiBase}rollback_player?
+            token=${config.apiToken}&internal_id=${record.id}`)
+      .then(res => res.json())
+      .then(function(data) {
+          console.log(data)
+          props.refresh()
+      })
+    }
+    
 
-    fetch(`${config.apiBase}buy_player?
-               token=${config.apiToken}&internal_id=${props.currentPlayer.id}
-               &manager_id=${currentManager}&payed=${currentBid}`)
-          .then(res => res.json())
-          .then(function(data) {
-              console.log(data)
-              props.handleBuy(data.data.extracted)
-          })
-  }*/
+  }
+
   let playerManager
   playerManager = props.managers.filter(function(manager) {
-        return record.manager === manager.id
+        console.log(manager.id)
+        return record.manager == manager.id
   })
-  playerManager = playerManager[0]
   console.log(playerManager)
-  return(<div className="custom-selected-player">
+
+  return(<div className={'custom-selected-player ' + (record.payed ? 'custom-selected-player-buyed' : 'custom-selected-player-unbuyed')}>
             <div className="custom-selected-player-name">
               {record.nome}
             </div>
@@ -54,15 +73,16 @@ export default function CustomPlayer(props) {
             </div>
             {record.buyed ?
               <div className="custom-selected-player-manager">
-                {playerManager.nome + ' (' + record.payed + ') '}
+                {playerManager[0].nome + ' (' + record.payed + ') '}
               </div>
               : ''
             }
             <div className="custom-selected-player-action">
-               <form>
+               <form onSubmit={handleSubmit}>
                  {!record.buyed ?
                     <select name="selectedManager"
                             value={selectedManager}
+                            onChange={handleManager}
                     >
                       {props.managers.map(
                         (manager) => <option key={manager.id} value={manager.id}>
@@ -73,13 +93,14 @@ export default function CustomPlayer(props) {
                   : '' }
                   {!record.buyed ?
                     <input name="selectedBet"
-                           type="tel"
+                           type="number"
                            value={selectedBet}
+                           onChange={handleBet}
                     />  
                   : '' }
-                  <input type="submit"
-                         value={record.buyed ? 'Svincola' : 'Acquista'}
-                  />
+                  <button>
+                    {record.buyed ? <span>&#10008;</span> : <span>&#10003;</span>}
+                  </button>
                </form>
             </div>
          </div>
