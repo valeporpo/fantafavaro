@@ -38,7 +38,7 @@ export default function Buyer(props) {
   return(
     <form onSubmit={handleSubmit}>
         <div className='form-data-handlers'>
-          <input type="number"
+          <input type="tel"
                 name="currentBid"
                 value={currentBid}
                 onChange={handlePriceChange}

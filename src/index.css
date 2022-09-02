@@ -356,21 +356,16 @@ div.main > div.player-card > div.player-info-container
 }
 
 div.main > div.player-card > div.player-info-container
-> div.player-statistics > div.player-buyer > form > div > input[type="number"] {
+> div.player-statistics > div.player-buyer > form > div > input[type="number"],
+input[type="number"] {
    width: 40px;
    border-radius: 10px;
    padding: 4px;
 }
 
 div.main > div.player-card > div.player-info-container
-> div.player-statistics > div.player-buyer > form > div > input[type="number"] {
-   width: 40px;
-   border-radius: 10px;
-   padding: 4px;
-}
-
-div.main > div.player-card > div.player-info-container
-> div.player-statistics > div.player-buyer > form > div > input[type="submit"] {
+> div.player-statistics > div.player-buyer > form > div > input[type="submit"],
+input[type="submit"] {
    cursor: pointer;
    background-color: #303c6c;
    color: white;
@@ -379,10 +374,17 @@ div.main > div.player-card > div.player-info-container
 }
 
 div.main > div.player-card > div.player-info-container
-> div.player-statistics > div.player-buyer > form > div > select {
+> div.player-statistics > div.player-buyer > form > div > select,
+select {
    margin-left: 5px;
    border-radius: 10px;
    padding: 4px;
+}
+
+div.main > div.custom-selector > div.custom-selected-player {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Noto Sans Georgian', sans-serif;
 }
 
 .hidden {

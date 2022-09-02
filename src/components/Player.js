@@ -2,7 +2,7 @@ import React from 'react';
 import Buyer from './Buyer'
 
 export default function Player(props) {
-    console.log(props)
+
     function setRoleClass(role) {
 
       if(role == "Por") {

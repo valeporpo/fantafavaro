@@ -1,15 +1,17 @@
 import React from 'react'
 import Player from './Player'
-import Buyer from './Buyer'
+import CustomSelector from './CustomSelector'
 import config from '../config.js'
 
 export default function MainContent() {
 
     const [player, setPlayer] = React.useState({})
+    const [players, setPlayers] = React.useState({})
     const [managers, setManagers] = React.useState([{}])
     const [status, setStatus] = React.useState('begin')
 
     React.useEffect(retrievePlayer, [0])
+    React.useEffect(retrievePlayers, [0])
     React.useEffect(retrieveManagers, [0])
 
     // Recupera il giocatore corrente
@@ -17,7 +19,6 @@ export default function MainContent() {
         fetch(`${config.apiBase}retrieve_player?token=${config.apiToken}`)
           .then(res => res.json())
           .then(function(data) {
-             console.log(data)
              switch(data.status) {
                case 'something went wrong':
                   setStatus(data.error)
@@ -38,6 +39,16 @@ export default function MainContent() {
           })
     }
 
+    function retrievePlayers() {
+      fetch(`${config.apiBase}get_players?token=${config.apiToken}&mode=all`)
+        .then(res => res.json())
+        .then(function(data) {
+           if(data.status == 'success') {
+              setPlayers(data.data)
+           }
+        })
+  }
+
     // Recupera tutti gli allenatori
     function retrieveManagers() {
         fetch(`${config.apiBase}retrieve_managers?token=${config.apiToken}`)
@@ -54,7 +65,6 @@ export default function MainContent() {
                token=${config.apiToken}&order_position=${ordineEstrazione}`)
           .then(res => res.json())
           .then(function(data) {
-             console.log(data)
              switch(data.status) {
                case 'something went wrong':
                   setStatus(data.error)
@@ -107,7 +117,6 @@ export default function MainContent() {
                token=${config.apiToken}&order_position=${ordineEstrazione}`)
           .then(res => res.json())
           .then(function(data) {
-             console.log(data)
              switch(data.status) {
                case 'something went wrong':
                   setStatus(data.error)
@@ -137,6 +146,9 @@ export default function MainContent() {
                     handleBegin={extractPlayer}
                     handleBuy={handleBuy}
                     managers={managers}
+            />
+            <CustomSelector players={players}
+                            managers={managers}
             />            
         </div>
     )
