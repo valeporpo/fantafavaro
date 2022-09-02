@@ -13,10 +13,10 @@ export default function Buyer(props) {
   }, [props.managers[0].id])
 
   function handlePriceChange(event) {
-    if(event.target.value >= props.currentPlayer.prezzo_base)
+    //if(event.target.value >= props.currentPlayer.prezzo_base)
       setCurrentBid(event.target.value)
-    else
-      setCurrentBid(props.currentPlayer.prezzo_base)  
+    //else
+     // setCurrentBid(props.currentPlayer.prezzo_base)  
   }
 
   function handleManagerChange(event) {
@@ -38,7 +38,7 @@ export default function Buyer(props) {
   return(
     <form onSubmit={handleSubmit}>
         <div className='form-data-handlers'>
-          <input type="tel"
+          <input type="number"
                 name="currentBid"
                 value={currentBid}
                 onChange={handlePriceChange}
