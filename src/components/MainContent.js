@@ -1,6 +1,5 @@
 import React from 'react'
 import Player from './Player'
-import Log from './Log'
 import Buyer from './Buyer'
 import config from '../config.js'
 
@@ -8,80 +7,137 @@ export default function MainContent() {
 
     const [player, setPlayer] = React.useState({})
     const [managers, setManagers] = React.useState([{}])
-    const [isLast, setIsLast] = React.useState(true)
+    const [status, setStatus] = React.useState('begin')
 
     React.useEffect(retrievePlayer, [0])
     React.useEffect(retrieveManagers, [0])
 
+    // Recupera il giocatore corrente
     function retrievePlayer() {
-        fetch("https://fantafavaro-api.herokuapp.com/index.php/retrieve_player?token=p6h72m0zd3j38uqer")
+        fetch(`${config.apiBase}retrieve_player?token=${config.apiToken}`)
           .then(res => res.json())
           .then(function(data) {
-            console.log(data)
-             if(data.is_beginning) {
-                setPlayer({})
-             } else {
-                setPlayer(data.data)
+             console.log(data)
+             switch(data.status) {
+               case 'something went wrong':
+                  setStatus(data.error)
+                  break;
+               case 'success':
+                  setStatus(data.position)
+                  switch(data.position) {
+                     case 'begin':
+                        setPlayer({})
+                        break;
+                     default:
+                        setPlayer(data.data)
+                  }
+                  break;
+               default:
+                  setStatus('error')
              }
           })
     }
 
+    // Recupera tutti gli allenatori
     function retrieveManagers() {
-        fetch("https://fantafavaro-api.herokuapp.com/index.php/retrieve_managers?token=p6h72m0zd3j38uqer")
+        fetch(`${config.apiBase}retrieve_managers?token=${config.apiToken}`)
           .then(res => res.json())
           .then(function(data) {
              setManagers(data.data)
           })
     }
 
+    // Torna indietro
     function extractPlayer() {
-        let ordineEstrazione = typeof(player.ordine_estrazione) == 'undefined' ? 0 : player.ordine_estrazione
+        let ordineEstrazione = status == 'begin' ? 0 : player.ordine_estrazione
         fetch(`${config.apiBase}extract_player?
                token=${config.apiToken}&order_position=${ordineEstrazione}`)
           .then(res => res.json())
           .then(function(data) {
              console.log(data)
-             setPlayer(data.data)
-             setIsLast(data.is_last)
-             retrieveManagers()
+             switch(data.status) {
+               case 'something went wrong':
+                  setStatus(data.error)
+                  break;
+               case 'success':
+                  setStatus(data.position)
+                  switch(data.position) {
+                     case 'begin':
+                        setPlayer({})
+                        break;
+                     default:
+                        setPlayer(data.data)
+                  }
+                  break;
+               default:
+                  setStatus('error')
+             }
           })
     }
 
+    // Estrai o vai avanti
     function unextractPlayer() {
-        fetch("https://fantafavaro-api.herokuapp.com/index.php/unextract_player?token=p6h72m0zd3j38uqer&order_position="+player.ordine_estrazione)
+        fetch(`${config.apiBase}unextract_player?token=${config.apiToken}&order_position=${player.ordine_estrazione}`)
           .then(res => res.json())
           .then(function(data) {
-            if(data.data == 'no records available') {
-              setPlayer({})
-            } else {
-              setPlayer(data.data) 
-              setIsLast(false)
-              retrieveManagers()
+            switch(data.status) {
+              case 'something went wrong':
+                 setStatus(data.error)
+                 break;
+              case 'success':
+                 setStatus(data.position)
+                 switch(data.position) {
+                    case 'begin':
+                       setPlayer({})
+                       break;
+                    default:
+                       setPlayer(data.data)
+                 }
+                 break;
+              default:
+                 setStatus('error')
             }
            })
     }
 
-    function handleBuy() {
+    function handleBuy(ordineEstrazione) {
+        ordineEstrazione = ordineEstrazione-1
         retrieveManagers()
-        retrievePlayer()
-
+        fetch(`${config.apiBase}extract_player?
+               token=${config.apiToken}&order_position=${ordineEstrazione}`)
+          .then(res => res.json())
+          .then(function(data) {
+             console.log(data)
+             switch(data.status) {
+               case 'something went wrong':
+                  setStatus(data.error)
+                  break;
+               case 'success':
+                  setStatus(data.position)
+                  switch(data.position) {
+                     case 'begin':
+                        setPlayer({})
+                        break;
+                     default:
+                        setPlayer(data.data)
+                  }
+                  break;
+               default:
+                  setStatus('error')
+             }
+          })
     }
 
     return (
         <div className="main">
             <Player currentPlayer={player}
-                    isLast={isLast}
+                    status={status}
                     handleForward={extractPlayer}
                     handleBackward={unextractPlayer}
                     handleBegin={extractPlayer}
-                    
-                    
-            />
-            {Object.keys(player).length ? <Buyer currentPlayer={player}
-                   handleBuy={handleBuy}
-                   managers={managers}
-            /> : ''}
-            
+                    handleBuy={handleBuy}
+                    managers={managers}
+            />            
         </div>
     )
 }

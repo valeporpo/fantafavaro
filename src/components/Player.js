@@ -1,7 +1,8 @@
 import React from 'react';
+import Buyer from './Buyer'
 
 export default function Player(props) {
-
+    console.log(props)
     function setRoleClass(role) {
 
       if(role == "Por") {
@@ -17,45 +18,53 @@ export default function Player(props) {
       }
     }
 
-    let anonimousPlayer = typeof(props.currentPlayer) == 'undefined' || Object.keys(props.currentPlayer).length <= 0
     return (
         <div className={`player-card`}>
             <div className={`player-name`}>
-                {!anonimousPlayer ? props.currentPlayer.nome : '???'}
+                {props.status != 'begin' ? props.currentPlayer.nome : '???'}
             </div>
-            <div className={`player-info-container ${!anonimousPlayer && props.currentPlayer.buyed == true ? 'buyed' : ''}`}>
+            <div className={`player-info-container ${!(props.status == 'begin') && props.currentPlayer.buyed == true ? 'buyed' : ''}`}>
                 <div className='player-team'>
                   <div className={`player-buyed-sign`}>
                     Venduto !
                   </div>
-                  <img src={!anonimousPlayer ? `loghi/${!anonimousPlayer && props.currentPlayer.squadra}.png` : `default-user-image.png`}
+                  <img src={props.status != 'begin' ? `loghi/${!(props.status == 'begin') && props.currentPlayer.squadra}.png` : `default-user-image.png`}
                       className="team-logo"
                   />
                 </div>
                 <div className='player-statistics'>
-                  <div className={!anonimousPlayer ? `player-role` : ''}>
-                    {!anonimousPlayer ? props.currentPlayer.ruolo.split(',').map((role) => <span className={setRoleClass(role)}>{role}</span>) : ''}
+                  <div className={props.status != 'begin' ? `player-role` : ''}>
+                    {props.status != 'begin' ? props.currentPlayer.ruolo.split(',').map((role) => <span className={setRoleClass(role)}>{role}</span>) : ''}
                   </div>
-                  <div className='player-price'>
+                  <div className={props.status != 'begin' ? 'player-price' : ''}>
                     <span>
-                      {!anonimousPlayer ? props.currentPlayer.prezzo_base : ''}
+                      {props.status != 'begin' ? props.currentPlayer.prezzo_base : 'Chi sarà il primo estratto?'}
                     </span>
+                  </div>
+                  <div className={props.currentPlayer.buyed ? 'player-buyer hidden' : 'player-buyer'}>
+                    {props.status != 'begin' ? <Buyer currentPlayer={props.currentPlayer}
+                    handleBuy={props.handleBuy}
+                    managers={props.managers}
+                  /> : ''}
                   </div>
                 </div>
             </div>
             <div className="extractor">
                 <div
-                   className={`extractor-backward ${!anonimousPlayer && props.currentPlayer.ordine_estrazione != 1 ? '': 'hidden-button'}`}
+                   className={`extractor-backward ${props.status != 'begin' && props.currentPlayer.ordine_estrazione != 1 ? '': 'hidden-button'}`}
                    onClick={props.handleBackward}>
                   <span>Torna indietro</span>
                 </div>
                 <div
-                   className={`extractor-forward ${!anonimousPlayer ? '': 'hidden-button'}`}
+                   className={`extractor-forward ${props.status != 'begin' && props.status != 'last' ? '': 'hidden-button'}`}
                    onClick={props.handleForward}>
-                  <span>{props.isLast ? 'Estrai' : 'Vai avanti'}</span>
+                  <span>
+                    {(props.status == 'middle last extracted' || props.status == 'begin') ? 'Estrai' : ''}
+                    {props.status == 'middle not last extracted' ? 'Vai avanti' : ''}
+                  </span>
                 </div>
                 <div
-                   className={`extractor-forward ${!anonimousPlayer ? 'hidden-button' : ''}`}
+                   className={`extractor-forward ${props.status != 'begin' ? 'hidden-button' : ''}`}
                    onClick={props.handleBegin}>
                   <span>Inizia l'asta</span>
                 </div>

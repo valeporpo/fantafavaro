@@ -97,39 +97,27 @@ div.main {
     opacity: 0.95;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     font-family: 'Paytone One', sans-serif;
     margin-bottom: 50px;
 
 }
 
-@media only screen and (max-width: 500px) {
+div.main > div:first-child.player-card {
 
-    div.main {
-
-        flex-direction: column;
-
-    }
-
-    div.main > div:first-child.player-card {
-
-        margin-right: 10px !important;
-        margin-left: 10px !important;
-
-    }
-
-    div.main > div.player-card > div.player-info-container > div.player-team > img.team-logo {
-
-        width: 150px !important;
-
-    }
+    text-align: right;
+    width: 450px;
 
 }
 
-div.main > div:first-child.player-card {
+@media only screen and (max-width: 500px) {
 
-    margin-right: 50px;
-    text-align: right;
-    width: 340px;
+    div.main > div:first-child.player-card {
+
+        width: 80%;
+    
+    }
 
 }
 
@@ -160,7 +148,8 @@ div.main > div.player-card > div:last-child {
 
 }
 
-div.main > div.player-card > div:last-child > div {
+div.main > div.player-card > div:last-child > div
+{
 
     background-color: #303c6c;
     box-shadow: 1px 2px 3px grey;
@@ -217,8 +206,36 @@ div.main > div.player-card > div.player-info-container {
 
 div.main > div.player-card > div.player-info-container >
 div.player-team {
-    width: 70%;
+    width: 60%;
 }
+
+div.main > div.player-card > div.player-info-container >
+div.player-statistics {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+@media only screen and (max-width: 500px) {
+
+    div.main > div.player-card > div.player-info-container >
+    div.player-team {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    div.main > div.player-card > div.player-info-container >
+    div.player-statistics {
+        width: 50%;
+    }
+
+}
+
 
 div.main > div.player-card > div.player-info-container >
 div.player-team > div.player-buyed-sign {
@@ -248,23 +265,28 @@ div.main > div.player-card > div.player-info-container
 
 }
 
-div.main > div.player-card > div.player-info-container
-> div.player-statistics > div.player-role {
-    float:left;
-}
+@media only screen and (max-width: 500px) {
 
-div.main > div.player-card > div.player-info-container
-> div.player-statistics {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 30%;
+    div.main > div.player-card > div.player-info-container
+    > div.player-team > img.team-logo {
+    
+        width: 100px;
+        border-radius: 50%;
+    
+    }
+    
+
 }
 
 div.main > div.player-card > div.player-info-container
 > div.player-statistics > div {
     margin-top: 7px;
     margin-bottom: 7px;
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-role {
+    float:left;
 }
 
 div.main > div.player-card > div.player-info-container
@@ -315,6 +337,56 @@ div.main > div.player-card > div.player-info-container
     color: #105a37;
     padding: 3px;
     
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-buyer > form {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-buyer > form > div {
+   width: 100%;
+   margin-top: 5px;
+   display: flex;
+   flex-direction: row;
+   justify-content: end;
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-buyer > form > div > input[type="number"] {
+   width: 40px;
+   border-radius: 10px;
+   padding: 4px;
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-buyer > form > div > input[type="number"] {
+   width: 40px;
+   border-radius: 10px;
+   padding: 4px;
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-buyer > form > div > input[type="submit"] {
+   cursor: pointer;
+   background-color: #303c6c;
+   color: white;
+   border-radius: 10px;
+   padding: 4px;
+}
+
+div.main > div.player-card > div.player-info-container
+> div.player-statistics > div.player-buyer > form > div > select {
+   margin-left: 5px;
+   border-radius: 10px;
+   padding: 4px;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 /* End Main */

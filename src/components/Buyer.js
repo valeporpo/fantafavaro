@@ -2,11 +2,15 @@ import React from 'react';
 import config from '../config.js'
 
 export default function Buyer(props) {
-  const [currentBid, setCurrentBid] = React.useState(props.currentPlayer.prezzo_base)
-  const [currentManager, setCurrentManager] = React.useState(props.managers[0].id)
+  const [currentBid, setCurrentBid] = React.useState('')
+  const [currentManager, setCurrentManager] = React.useState('')
   React.useEffect(() => {
     setCurrentBid(props.currentPlayer.prezzo_base);
   }, [props.currentPlayer.prezzo_base])
+
+  React.useEffect(() => {
+    setCurrentManager(props.managers[0].id);
+  }, [props.managers[0].id])
 
   function handlePriceChange(event) {
     if(event.target.value >= props.currentPlayer.prezzo_base)
@@ -27,30 +31,38 @@ export default function Buyer(props) {
                &manager_id=${currentManager}&payed=${currentBid}`)
           .then(res => res.json())
           .then(function(data) {
-              props.handleBuy()
+              console.log(data)
+              props.handleBuy(data.data.extracted)
           })
   }
   return(
     <form onSubmit={handleSubmit}>
-        <input type="number"
-               name="currentBid"
-               value={currentBid}
-               onChange={handlePriceChange}
+        <div className='form-data-handlers'>
+          <input type="number"
+                name="currentBid"
+                value={currentBid}
+                onChange={handlePriceChange}
 
-        />
-        <select name="currentManager"
-                value={currentManager}
-                onChange={handleManagerChange}
-                >
-            {
-              props.managers.map(
-                (manager) => <option key={manager.id} value={manager.id}>{manager.nome}</option>
-              )
-            }
-        </select>
-        <input type="submit"
-               name="submit"
-        />       
+          />
+          <select name="currentManager"
+                  value={currentManager}
+                  onChange={handleManagerChange}
+                  >
+              {
+                props.managers.map(
+                  (manager) => <option key={manager.id} value={manager.id}>
+                                {manager.nome}
+                              </option>
+                )
+              }
+          </select>
+        </div>
+        <div className='form-data-submit'>
+          <input type="submit"
+                name="submit"
+                value="Compra"
+          /> 
+        </div>    
     </form>
   )
 }
