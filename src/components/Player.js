@@ -22,6 +22,11 @@ export default function Player(props) {
         <div className={`player-card`}>
             <div className={`player-name`}>
                 {props.status != 'begin' ? props.currentPlayer.nome : '???'}
+                {props.status != 'begin' ?
+                <small>
+                  {'   (' + props.currentPlayer.ordine_estrazione+'/'+props.players.length+')'}
+                </small> : ''}
+                
             </div>
             <div className={`player-info-container ${!(props.status == 'begin') && props.currentPlayer.buyed == true ? 'buyed' : ''}`}>
                 <div className='player-team'>

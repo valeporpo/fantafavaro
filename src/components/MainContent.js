@@ -149,6 +149,7 @@ export default function MainContent() {
                     handleBuy={handleBuy}
                     managers={managers}
                     refresh={retrievePlayers}
+                    players={players}
             />
             <CustomSelector players={players}
                             managers={managers}

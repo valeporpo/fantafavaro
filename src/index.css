@@ -196,6 +196,12 @@ div.main > div.player-card > div.player-name {
 
 }
 
+div.main > div.player-card > div.player-name > small {
+
+    font-size: 13px;
+
+}
+
 div.main > div.player-card > div.player-info-container {
 
     text-align: center;
